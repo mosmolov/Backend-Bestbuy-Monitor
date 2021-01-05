@@ -1,9 +1,10 @@
 {
     "bottoken": "",
-    "ProductSKUs": {
-        "ThirtyEighty": "",
-        "ThirtySeventy": "",
-        "ThirtyNinety": ""
-    },
-    "BBYAPIKEY": ""
+    "ProductSKUs": [
+        "6429434",
+        "6439402",
+        "6429440",
+        "6429442"
+    ],
+    "BBYAPIKEY": "uBktt4IZlvE2wGJlfxRsW3Pr"
 }
