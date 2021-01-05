@@ -1,16 +1,12 @@
 var request = require('request');
-const discord = require('discord.js');
-const client = new discord.Client();
+const Discord = require('discord.js');
+const client = new Discord.Client();
 const { ProductSKUs, BBYAPIKEY } = require('./config.json');
+const { delay } = require('./misc_functions');
+client.on('ready', () => {
+    console.log(`Logged in as ${client.user.tag}!`);
+  });
 
-function sleep() {
-    return new Promise((resolve) => {
-      setTimeout(resolve, 1000);
-    });
-  }
-async function delay() {
-    await sleep(3000);
-}
 ProductSKUs.forEach(sku => {
     var options = {
         'method': 'GET',
@@ -20,7 +16,7 @@ ProductSKUs.forEach(sku => {
         if(err) ;
         var itemdata = JSON.parse(res.body);
         if(itemdata["orderable"] != 'SoldOut' || itemdata["orderable"] != undefined){
-            const embed = new discord.MessageEmbed()
+            const embed = new Discord.MessageEmbed()
                             .setThumbnail(itemdata["image"])
                             .setFooter(`Restocked at ${itemdata["itemUpdateDate"]}`)
                             .setTitle(`${itemdata["name"]}`)
@@ -29,7 +25,7 @@ ProductSKUs.forEach(sku => {
                             .addField('Price',itemdata["regularPrice"], true)
                             .addField('Important Links',`**[ATC](${itemdata["addToCartUrl"]})** - **[Product](${itemdata['url']})**`);
             //https://discord.com/api/webhooks/773211136706609232/qZfnFkoxQSX_zYxADC5SdukN1vACMXYyAYFqJoeABVT7ThqPfbqUWLH_FdDQqBYi7wFi
-            const hook = new discord.WebhookClient('773211136706609232', 'qZfnFkoxQSX_zYxADC5SdukN1vACMXYyAYFqJoeABVT7ThqPfbqUWLH_FdDQqBYi7wFi')
+            const hook = new Discord.WebhookClient('773211136706609232', 'qZfnFkoxQSX_zYxADC5SdukN1vACMXYyAYFqJoeABVT7ThqPfbqUWLH_FdDQqBYi7wFi')
             hook.send(embed);                
         }
         /*itemdata["name"];
