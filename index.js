@@ -1,6 +1,6 @@
 var request = require('request');
 const Discord = require('discord.js');
-const { ProductSKUs, BBYAPIKEY } = require('./config.json');
+const { ProductSKUs, BBYAPIKEY, webhookid,webhooktoken } = require('./config.json');
 setInterval(function scrape(){
     ProductSKUs.forEach(sku => {
     const options = {
@@ -21,8 +21,7 @@ setInterval(function scrape(){
                             .addField('SKU', sku, true)
                             .addField('Price',itemdata["regularPrice"], true)
                             .addField('Important Links',`**[ATC](${itemdata["addToCartUrl"]})** - **[Product](${itemdata['url']})**`);
-            //https://discord.com/api/webhooks/773211136706609232/qZfnFkoxQSX_zYxADC5SdukN1vACMXYyAYFqJoeABVT7ThqPfbqUWLH_FdDQqBYi7wFi
-            const hook = new Discord.WebhookClient('773211136706609232', 'qZfnFkoxQSX_zYxADC5SdukN1vACMXYyAYFqJoeABVT7ThqPfbqUWLH_FdDQqBYi7wFi')
+            const hook = new Discord.WebhookClient(webhookid, webhooktoken);
             hook.send(embed);                
         }
         /*itemdata["name"];
