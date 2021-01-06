@@ -1,7 +1,6 @@
 var request = require('request');
 const Discord = require('discord.js');
 const { ProductSKUs, BBYAPIKEY } = require('./config.json');
-const { delay } = require('./misc_functions');
 setInterval(function scrape(){
     ProductSKUs.forEach(sku => {
     const options = {
